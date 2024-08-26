@@ -8,7 +8,7 @@ import { handleCategoryChange, fetchMovies } from './redux/moviesSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const { category, cards = [], status, error } = useSelector((state) => state.movies);
+  const { category, cards = [], status, error, errorMessage } = useSelector((state) => state.movies);
 
   useEffect(() => {
       dispatch(fetchMovies(category));
@@ -28,6 +28,7 @@ function App() {
         </div>
         <Form onCategoryChange={handleSelectChange} selectedCategory={category} /> 
         <div className='cards'>
+          {errorMessage && <div className="text-white">Bu kategoriye ait film bulunamamıştır.</div>}
           {status === 'loading' && <p>Loading</p>}
           {status === 'failed' && <p>{error}</p>}
           {status === 'succeeded' && cards.length > 0 ? (

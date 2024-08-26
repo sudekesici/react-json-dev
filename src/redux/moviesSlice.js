@@ -22,6 +22,7 @@ const initialState = {
   error: null,
 };
 
+
 export const moviesSlice = createSlice({
   name: 'movies',
   initialState,
@@ -36,8 +37,13 @@ export const moviesSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
+        if(action.payload[0]?.error) {
+          state.status = 'failed';
+          state.errorMessage = action.payload[0]?.message
+        }else {
         state.status = 'succeeded';
         state.cards = action.payload;
+        }
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.status = 'failed';

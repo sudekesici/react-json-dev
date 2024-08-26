@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Yerel JSON Server URL'si
 const BASE_URL = 'http://localhost:3005';
 
 export const fetchMovies = createAsyncThunk(
